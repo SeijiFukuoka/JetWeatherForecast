@@ -1,4 +1,4 @@
-package br.com.jetweatherforecast.screens
+package br.com.jetweatherforecast.screens.splash
 
 import android.view.animation.OvershootInterpolator
 import androidx.compose.animation.core.Animatable

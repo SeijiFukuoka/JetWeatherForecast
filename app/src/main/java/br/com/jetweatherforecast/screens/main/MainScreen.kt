@@ -1,4 +1,4 @@
-package br.com.jetweatherforecast.screens
+package br.com.jetweatherforecast.screens.main
 
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
