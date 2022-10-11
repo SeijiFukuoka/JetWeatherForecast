@@ -16,6 +16,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import br.com.jetweatherforecast.data.DataOrException
 import br.com.jetweatherforecast.model.Weather
+import br.com.jetweatherforecast.utils.formatDate
+import br.com.jetweatherforecast.utils.formatDecimals
 import br.com.jetweatherforecast.widgets.WeatherAppBar
 import coil.compose.rememberImagePainter
 
@@ -27,7 +29,7 @@ fun MainScreen(
     val weatherData = produceState<DataOrException<Weather, Boolean, Exception>>(
         initialValue = DataOrException(loading = true)
     ) {
-        value = mainViewModel.getWeatherData(city = "Moscow")
+        value = mainViewModel.getWeatherData(city = "Tokyo")
     }.value
 
     if (weatherData.loading == true) {
@@ -63,7 +65,7 @@ fun MainContent(data: Weather) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Nov 29",
+            text = formatDate(data.list.first().dt),
             color = MaterialTheme.colors.onSecondary,
             style = MaterialTheme.typography.caption,
             fontWeight = FontWeight.SemiBold,
@@ -83,15 +85,14 @@ fun MainContent(data: Weather) {
             ) {
                 WeatherStateImage(imageUrl)
                 Text(
-                    text = "56",
+                    text = formatDecimals(data.list.first().temp.day) + "º",
                     style = MaterialTheme.typography.h4,
                     fontWeight = FontWeight.ExtraBold
                 )
                 Text(
-                    text = "Snow",
+                    text = data.list.first().weather.first().main,
                     fontStyle = FontStyle.Italic
                 )
-
             }
         }
     }
