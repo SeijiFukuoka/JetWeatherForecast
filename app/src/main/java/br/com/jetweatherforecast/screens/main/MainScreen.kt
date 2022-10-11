@@ -20,6 +20,7 @@ import br.com.jetweatherforecast.data.DataOrException
 import br.com.jetweatherforecast.model.Weather
 import br.com.jetweatherforecast.model.WeatherItem
 import br.com.jetweatherforecast.utils.formatDate
+import br.com.jetweatherforecast.utils.formatDateTime
 import br.com.jetweatherforecast.utils.formatDecimals
 import br.com.jetweatherforecast.widgets.WeatherAppBar
 import coil.compose.rememberImagePainter
@@ -99,6 +100,8 @@ fun MainContent(data: Weather) {
             }
         }
         HumidityWindPressureRow(data.list.first())
+        Divider()
+        SunriseSunset(data.list.first())
     }
 }
 
@@ -142,6 +145,40 @@ fun HumidityWindPressureRow(weather: WeatherItem) {
             Text(
                 text = "${weather.humidity} mph",
                 style = MaterialTheme.typography.caption
+            )
+        }
+    }
+}
+
+@Composable
+fun SunriseSunset(weather: WeatherItem) {
+    Row(
+        modifier = Modifier
+            .padding(12.dp)
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Row(modifier = Modifier.padding(4.dp)) {
+            Icon(
+                painter = painterResource(id = R.drawable.sunrise),
+                contentDescription = "sunrise icon",
+                modifier = Modifier.size(20.dp)
+            )
+            Text(
+                text = formatDateTime(weather.sunrise),
+                style = MaterialTheme.typography.caption
+            )
+        }
+        Row(modifier = Modifier.padding(4.dp)) {
+            Text(
+                text = formatDateTime(weather.sunset),
+                style = MaterialTheme.typography.caption
+            )
+            Icon(
+                painter = painterResource(id = R.drawable.sunset),
+                contentDescription = "sunset icon",
+                modifier = Modifier.size(20.dp)
             )
         }
     }
