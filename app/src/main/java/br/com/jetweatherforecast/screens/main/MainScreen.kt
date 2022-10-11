@@ -9,13 +9,16 @@ import androidx.compose.runtime.produceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import br.com.jetweatherforecast.R
 import br.com.jetweatherforecast.data.DataOrException
 import br.com.jetweatherforecast.model.Weather
+import br.com.jetweatherforecast.model.WeatherItem
 import br.com.jetweatherforecast.utils.formatDate
 import br.com.jetweatherforecast.utils.formatDecimals
 import br.com.jetweatherforecast.widgets.WeatherAppBar
@@ -94,6 +97,52 @@ fun MainContent(data: Weather) {
                     fontStyle = FontStyle.Italic
                 )
             }
+        }
+        HumidityWindPressureRow(data.list.first())
+    }
+}
+
+@Composable
+fun HumidityWindPressureRow(weather: WeatherItem) {
+    Row(
+        modifier = Modifier
+            .padding(12.dp)
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Row(modifier = Modifier.padding(4.dp)) {
+            Icon(
+                painter = painterResource(id = R.drawable.humidity),
+                contentDescription = "humidity icon",
+                modifier = Modifier.size(20.dp)
+            )
+            Text(
+                text = "${weather.humidity}%",
+                style = MaterialTheme.typography.caption
+            )
+        }
+        Row(modifier = Modifier.padding(4.dp)) {
+            Icon(
+                painter = painterResource(id = R.drawable.pressure),
+                contentDescription = "pressure icon",
+                modifier = Modifier.size(20.dp)
+            )
+            Text(
+                text = "${weather.pressure} psi",
+                style = MaterialTheme.typography.caption
+            )
+        }
+        Row(modifier = Modifier.padding(4.dp)) {
+            Icon(
+                painter = painterResource(id = R.drawable.wind),
+                contentDescription = "wind icon",
+                modifier = Modifier.size(20.dp)
+            )
+            Text(
+                text = "${weather.humidity} mph",
+                style = MaterialTheme.typography.caption
+            )
         }
     }
 }
