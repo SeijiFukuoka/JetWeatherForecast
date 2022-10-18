@@ -9,6 +9,13 @@ fun formatDate(timestamp: Int): String {
     return sdf.format(date)
 }
 
+fun formatDateWeek(timestamp: Int): String {
+    val sdf = SimpleDateFormat("EEE")
+    val date = java.util.Date(timestamp.toLong() * 1000)
+
+    return sdf.format(date)
+}
+
 fun formatDateTime(timestamp: Int): String {
     val sdf = SimpleDateFormat("hh:mm:aa")
     val date = java.util.Date(timestamp.toLong() * 1000)
