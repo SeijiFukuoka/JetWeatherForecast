@@ -13,6 +13,7 @@ import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
@@ -21,8 +22,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import br.com.jetweatherforecast.model.Favorite
 import br.com.jetweatherforecast.navigation.WeatherScreens
+import br.com.jetweatherforecast.screens.favorite.FavoriteViewModel
 
 @Preview
 @Composable
@@ -32,6 +36,7 @@ fun WeatherAppBar(
     isMainScreen: Boolean = true,
     elevation: Dp = 0.dp,
     navController: NavController? = null,
+    favoriteViewModel: FavoriteViewModel = hiltViewModel(),
     onAddActionClicked: () -> Unit = {},
     onButtonClicked: () -> Unit = {}
 ) {
@@ -78,9 +83,28 @@ fun WeatherAppBar(
                 Icon(imageVector = icon,
                     contentDescription = null,
                     tint = MaterialTheme.colors.onSecondary,
-                    modifier = androidx.compose.ui.Modifier.clickable {
+                    modifier = Modifier.clickable {
                         onButtonClicked.invoke()
                     })
+            }
+            if (isMainScreen) {
+                Icon(
+                    imageVector = Icons.Default.Favorite,
+                    contentDescription = "Favorite Icon",
+                    modifier = Modifier
+                        .scale(0.9f)
+                        .clickable {
+                            val dataList = title.split(",")
+                            favoriteViewModel
+                                .insertFavorite(
+                                    favorite = Favorite(
+                                        city = dataList[0], // city name
+                                        country = dataList[1] // country code
+                                    )
+                                )
+                        },
+                    tint = Color.Red.copy(alpha = 0.6f)
+                )
             }
         },
         backgroundColor = Color.Transparent,

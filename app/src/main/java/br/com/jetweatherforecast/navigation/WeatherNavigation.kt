@@ -9,6 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import br.com.jetweatherforecast.screens.about.AboutScreen
 import br.com.jetweatherforecast.screens.favorite.FavoriteScreen
+import br.com.jetweatherforecast.screens.favorite.FavoriteViewModel
 import br.com.jetweatherforecast.screens.main.MainScreen
 import br.com.jetweatherforecast.screens.main.MainViewModel
 import br.com.jetweatherforecast.screens.search.SearchScreen
@@ -46,7 +47,8 @@ fun WeatherNavigation() {
             AboutScreen(navController = navController)
         }
         composable(WeatherScreens.FavoriteScreen.name) {
-            FavoriteScreen(navController = navController)
+            val favoriteViewModel = hiltViewModel<FavoriteViewModel>()
+            FavoriteScreen(navController = navController, favoriteViewModel)
         }
         composable(WeatherScreens.SettingsScreen.name) {
             SettingsScreen(navController = navController)
