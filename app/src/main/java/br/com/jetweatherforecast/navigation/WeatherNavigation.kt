@@ -14,6 +14,7 @@ import br.com.jetweatherforecast.screens.main.MainScreen
 import br.com.jetweatherforecast.screens.main.MainViewModel
 import br.com.jetweatherforecast.screens.search.SearchScreen
 import br.com.jetweatherforecast.screens.settings.SettingsScreen
+import br.com.jetweatherforecast.screens.settings.SettingsViewModel
 import br.com.jetweatherforecast.screens.splash.WeatherSplashScreen
 
 @Composable
@@ -51,7 +52,11 @@ fun WeatherNavigation() {
             FavoriteScreen(navController = navController, favoriteViewModel)
         }
         composable(WeatherScreens.SettingsScreen.name) {
-            SettingsScreen(navController = navController)
+            val settingsViewModel = hiltViewModel<SettingsViewModel>()
+            SettingsScreen(
+                navController = navController,
+                settingsViewModel = settingsViewModel
+            )
         }
     }
 }
